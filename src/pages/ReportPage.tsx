@@ -11,34 +11,58 @@ const categories = [
   { 
     id: "waste-disposal", 
     label: "Waste Disposal",
-    icon: Trash2 
+    icon: Trash2,
+    color: "waste",
+    gradient: "from-category-waste to-category-waste/80"
   },
   { 
     id: "electric-fault", 
     label: "Electric Fault",
-    icon: Zap 
+    icon: Zap,
+    color: "electric", 
+    gradient: "from-category-electric to-category-electric/80"
   },
   { 
     id: "water-problem", 
     label: "Water Problem",
-    icon: Droplet 
+    icon: Droplet,
+    color: "water",
+    gradient: "from-category-water to-category-water/80"
   },
   { 
     id: "road-maintenance", 
     label: "Road Maintenance",
-    icon: Construction 
+    icon: Construction,
+    color: "road",
+    gradient: "from-category-road to-category-road/80"
   },
   { 
     id: "stray-animal", 
     label: "Stray Animal",
-    icon: Dog 
+    icon: Dog,
+    color: "animal",
+    gradient: "from-category-animal to-category-animal/80"
   },
   { 
     id: "others", 
     label: "Others",
-    icon: MoreHorizontal 
+    icon: MoreHorizontal,
+    color: "other",
+    gradient: "from-category-other to-category-other/80"
   }
 ];
+
+const getCategoryTheme = (categoryId: string) => {
+  const categoryMap: { [key: string]: string } = {
+    "waste-disposal": "waste",
+    "electric-fault": "electric", 
+    "water-problem": "water",
+    "road-maintenance": "road",
+    "stray-animal": "animal",
+    "others": "other"
+  };
+  return categoryMap[categoryId] || "other";
+};
 
 export default function ReportPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -94,8 +118,14 @@ export default function ReportPage() {
     }
   };
 
+  const selectedCategoryTheme = formData.category ? getCategoryTheme(formData.category) : null;
+  
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12">
+    <div className={`min-h-screen py-12 transition-all duration-700 ${
+      selectedCategoryTheme 
+        ? `bg-gradient-to-br from-category-${selectedCategoryTheme}-light via-white to-category-${selectedCategoryTheme}-light/50`
+        : 'bg-gradient-to-br from-blue-50 via-white to-indigo-50'
+    }`}>
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-6">
@@ -109,11 +139,25 @@ export default function ReportPage() {
           </p>
         </div>
 
-        <Card className="shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
-          <CardHeader className="bg-gradient-to-r from-primary/5 to-blue-600/5 border-b border-primary/10">
+        <Card className={`shadow-2xl border-0 bg-white/90 backdrop-blur-sm transition-all duration-700 ${
+          selectedCategoryTheme ? `ring-2 ring-category-${selectedCategoryTheme}/20` : ''
+        }`}>
+          <CardHeader className={`border-b transition-all duration-700 ${
+            selectedCategoryTheme 
+              ? `bg-gradient-to-r from-category-${selectedCategoryTheme}/5 to-category-${selectedCategoryTheme}/10 border-category-${selectedCategoryTheme}/20`
+              : 'bg-gradient-to-r from-primary/5 to-blue-600/5 border-primary/10'
+          }`}>
             <CardTitle className="flex items-center gap-3 text-2xl">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <MapPin className="w-6 h-6 text-primary" />
+              <div className={`p-2 rounded-lg transition-all duration-500 ${
+                selectedCategoryTheme 
+                  ? `bg-category-${selectedCategoryTheme}/10`
+                  : 'bg-primary/10'
+              }`}>
+                <MapPin className={`w-6 h-6 transition-colors duration-500 ${
+                  selectedCategoryTheme 
+                    ? `text-category-${selectedCategoryTheme}`
+                    : 'text-primary'
+                }`} />
               </div>
               Issue Details
             </CardTitle>
@@ -146,27 +190,53 @@ export default function ReportPage() {
                   {categories.map((category) => {
                     const IconComponent = category.icon;
                     const isSelected = formData.category === category.id;
+                    const categoryTheme = category.color;
                     
                     return (
                       <div
                         key={category.id}
                         onClick={() => handleInputChange("category", category.id)}
                         className={`
-                          group p-6 rounded-xl border-2 cursor-pointer transition-all duration-300 transform hover:scale-105
+                          group relative p-6 rounded-xl border-2 cursor-pointer transition-all duration-500 transform hover:scale-105 overflow-hidden
                           ${isSelected 
-                            ? 'border-primary bg-gradient-to-br from-primary/10 to-primary/5 shadow-lg shadow-primary/20' 
-                            : 'border-gray-200 hover:border-primary/50 hover:bg-gradient-to-br hover:from-primary/5 hover:to-transparent hover:shadow-md'
+                            ? `border-category-${categoryTheme} bg-gradient-to-br from-category-${categoryTheme}/15 to-category-${categoryTheme}/5 shadow-xl shadow-category-${categoryTheme}/25 ring-2 ring-category-${categoryTheme}/20` 
+                            : `border-gray-200 hover:border-category-${categoryTheme}/60 hover:bg-gradient-to-br hover:from-category-${categoryTheme}/10 hover:to-transparent hover:shadow-lg hover:shadow-category-${categoryTheme}/15`
                           }
                         `}
+                        style={{
+                          boxShadow: isSelected 
+                            ? `var(--shadow-category) hsl(var(--category-${categoryTheme}) / 0.25)`
+                            : undefined
+                        }}
                       >
-                        <div className="flex flex-col items-center text-center space-y-3">
-                          <div className={`p-3 rounded-full transition-colors ${isSelected ? 'bg-primary/20' : 'bg-gray-100 group-hover:bg-primary/10'}`}>
+                        {/* Animated background blob */}
+                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
+                          isSelected ? 'opacity-100' : ''
+                        }`}>
+                          <div className={`absolute -top-4 -right-4 w-20 h-20 rounded-full bg-gradient-to-br ${category.gradient} opacity-20 animate-pulse`}></div>
+                          <div className={`absolute -bottom-4 -left-4 w-16 h-16 rounded-full bg-gradient-to-tl ${category.gradient} opacity-15 animate-pulse delay-300`}></div>
+                        </div>
+                        
+                        <div className="relative flex flex-col items-center text-center space-y-3">
+                          <div className={`p-4 rounded-full transition-all duration-500 transform ${
+                            isSelected 
+                              ? `bg-category-${categoryTheme}/25 scale-110 shadow-lg` 
+                              : `bg-gray-100 group-hover:bg-category-${categoryTheme}/20 group-hover:scale-105`
+                          }`}>
                             <IconComponent 
-                              className={`w-8 h-8 transition-colors ${isSelected ? 'text-primary' : 'text-gray-600 group-hover:text-primary'}`} 
+                              className={`w-8 h-8 transition-all duration-500 ${
+                                isSelected 
+                                  ? `text-category-${categoryTheme} scale-110` 
+                                  : `text-gray-600 group-hover:text-category-${categoryTheme}`
+                              }`} 
                             />
                           </div>
                           <div>
-                            <p className={`font-semibold text-sm transition-colors ${isSelected ? 'text-primary' : 'text-foreground group-hover:text-primary'}`}>
+                            <p className={`font-semibold text-sm transition-all duration-500 ${
+                              isSelected 
+                                ? `text-category-${categoryTheme} scale-105` 
+                                : `text-foreground group-hover:text-category-${categoryTheme}`
+                            }`}>
                               {category.label}
                             </p>
                           </div>
@@ -245,7 +315,11 @@ export default function ReportPage() {
               <div className="pt-4">
                 <Button 
                   type="submit" 
-                  className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]" 
+                  className={`w-full h-14 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-500 transform hover:scale-[1.02] ${
+                    selectedCategoryTheme && formData.category
+                      ? `bg-gradient-to-r from-category-${selectedCategoryTheme} to-category-${selectedCategoryTheme}/80 hover:from-category-${selectedCategoryTheme}/90 hover:to-category-${selectedCategoryTheme}/70 text-white`
+                      : 'bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90'
+                  }`}
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (

@@ -58,6 +58,20 @@ export default {
 					orange: 'hsl(var(--civic-orange))',
 					red: 'hsl(var(--civic-red))'
 				},
+				category: {
+					waste: 'hsl(var(--category-waste))',
+					'waste-light': 'hsl(var(--category-waste-light))',
+					electric: 'hsl(var(--category-electric))',
+					'electric-light': 'hsl(var(--category-electric-light))',
+					water: 'hsl(var(--category-water))',
+					'water-light': 'hsl(var(--category-water-light))',
+					road: 'hsl(var(--category-road))',
+					'road-light': 'hsl(var(--category-road-light))',
+					animal: 'hsl(var(--category-animal))',
+					'animal-light': 'hsl(var(--category-animal-light))',
+					other: 'hsl(var(--category-other))',
+					'other-light': 'hsl(var(--category-other-light))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

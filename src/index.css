@@ -41,11 +41,38 @@ All colors MUST be HSL.
     --civic-orange: 24 90% 55%;
     --civic-red: 0 84% 60%;
 
+    /* Category-specific colors */
+    --category-waste: 34 85% 55%;
+    --category-waste-light: 34 85% 95%;
+    --category-electric: 50 100% 60%;
+    --category-electric-light: 50 100% 95%;
+    --category-water: 200 85% 55%;
+    --category-water-light: 200 85% 95%;
+    --category-road: 25 85% 50%;
+    --category-road-light: 25 85% 95%;
+    --category-animal: 280 75% 60%;
+    --category-animal-light: 280 75% 95%;
+    --category-other: 220 15% 50%;
+    --category-other-light: 220 15% 95%;
+
+    /* Beautiful gradients */
     --gradient-hero: linear-gradient(135deg, hsl(var(--civic-blue)), hsl(var(--civic-green)));
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 40% 98%));
+    --gradient-waste: linear-gradient(135deg, hsl(var(--category-waste)), hsl(var(--category-waste) / 0.8));
+    --gradient-electric: linear-gradient(135deg, hsl(var(--category-electric)), hsl(var(--category-electric) / 0.8));
+    --gradient-water: linear-gradient(135deg, hsl(var(--category-water)), hsl(var(--category-water) / 0.8));
+    --gradient-road: linear-gradient(135deg, hsl(var(--category-road)), hsl(var(--category-road) / 0.8));
+    --gradient-animal: linear-gradient(135deg, hsl(var(--category-animal)), hsl(var(--category-animal) / 0.8));
+    --gradient-other: linear-gradient(135deg, hsl(var(--category-other)), hsl(var(--category-other) / 0.8));
 
+    /* Enhanced shadows */
     --shadow-civic: 0 4px 20px -4px hsl(var(--civic-blue) / 0.25);
     --shadow-elevated: 0 8px 30px -8px hsl(var(--civic-blue) / 0.3);
+    --shadow-category: 0 8px 25px -8px;
+    
+    /* Smooth transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --radius: 0.5rem;
 

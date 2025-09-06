@@ -150,7 +150,7 @@ export default function HomePage() {
             <CardContent className="space-y-4">
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" variant="civic" asChild>
-                  <Link to="/register">Get Started</Link>
+                  <Link to="/auth">Get Started</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild>
                   <Link to="/about">Learn More</Link>

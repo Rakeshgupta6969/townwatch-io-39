@@ -8,9 +8,9 @@ import { Shield, Users, MapPin, BarChart3, CheckCircle, Clock, AlertTriangle } f
 
 // Mock data - will be replaced with real data from Supabase
 const mockUsers = [
-  { id: "1", name: "John Doe", email: "john@example.com", role: "CITIZEN", issuesReported: 5, joinedAt: "2024-01-10" },
-  { id: "2", name: "Sarah Wilson", email: "sarah@example.com", role: "CITIZEN", issuesReported: 12, joinedAt: "2024-01-08" },
-  { id: "3", name: "Mike Johnson", email: "mike@city.gov", role: "STAFF", issuesReported: 3, joinedAt: "2024-01-05" }
+  { id: "1", name: "Rakesh Gupta", email: "rg688407@gmail.com", role: "CITIZEN", issuesReported: 5, joinedAt: "2024-01-10" },
+  { id: "2", name: "Chetan Uniyal", email: "sarah@example.com", role: "CITIZEN", issuesReported: 12, joinedAt: "2024-01-08" },
+  { id: "3", name: "Sameera Javed", email: "mike@city.gov", role: "STAFF", issuesReported: 3, joinedAt: "2024-01-05" }
 ];
 
 const mockIssues = [
@@ -22,7 +22,7 @@ const mockIssues = [
     status: "PENDING",
     location: "Main St & Oak Ave",
     createdAt: "2024-01-15",
-    reportedBy: "John Doe",
+    reportedBy: "Rakesh Gupta",
     priority: "HIGH"
   },
   {
@@ -33,7 +33,7 @@ const mockIssues = [
     status: "IN_PROGRESS",
     location: "First Avenue",
     createdAt: "2024-01-14", 
-    reportedBy: "Sarah Wilson",
+    reportedBy: "Chetan Uniyal",
     priority: "MEDIUM"
   }
 ];
